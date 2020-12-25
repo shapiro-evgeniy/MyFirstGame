@@ -9,6 +9,14 @@ namespace Platformer.Mechanics
     /// </summary>
     public class SpawnPoint : MonoBehaviour
     {
+        public AudioClip yeap;
+        internal AudioSource _audio;
+
+        private void Awake()
+        {
+            _audio = GetComponent<AudioSource>();
+        }
+
         void OnTriggerEnter2D(Collider2D collider)
         {
             var p = collider.gameObject.GetComponent<PlayerController>();

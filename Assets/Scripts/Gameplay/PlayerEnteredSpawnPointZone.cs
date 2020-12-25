@@ -16,7 +16,12 @@ namespace Platformer.Gameplay
 
         public override void Execute()
         {
-            model.spawnPoint = spawnPoint.transform;            
+            model.spawnPoint = spawnPoint.transform;
+
+            if (spawnPoint._audio && spawnPoint.yeap)
+            {
+                spawnPoint._audio.PlayOneShot(spawnPoint.yeap);
+            }
         }
     }
 }
