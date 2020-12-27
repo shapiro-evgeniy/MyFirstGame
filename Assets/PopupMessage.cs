@@ -24,17 +24,11 @@ public class PopupMessage : MonoBehaviour
         popupWindow.SetActive(true);
         Time.timeScale = 0f;
 
-        _exercise = CreateExercise();
+        _exercise = new Exercise();
 
         textExercise.text = _exercise.StringPresent;
 
         textAnswer.text = string.Empty;
-    }
-
-    private Exercise CreateExercise()
-    {
-        System.Random random = new System.Random();
-        return new Exercise(random.Next(1, 10), random.Next(1, 10));
     }
 
     public void DigitButton(int digit)
@@ -53,10 +47,11 @@ internal class Exercise
     private readonly int _a;
     private readonly int _b;
 
-    public Exercise(int a, int b)
+    public Exercise()
     {
-        _a = a;
-        _b = b;
+        System.Random random = new System.Random();
+        _a = random.Next(3, 10);
+        _b = random.Next(3, 10);
     }
 
     public string StringPresent 
