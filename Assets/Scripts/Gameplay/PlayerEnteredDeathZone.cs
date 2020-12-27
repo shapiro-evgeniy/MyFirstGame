@@ -1,6 +1,8 @@
 using Platformer.Core;
 using Platformer.Mechanics;
 using Platformer.Model;
+using System;
+using UnityEngine;
 
 namespace Platformer.Gameplay
 {
@@ -16,7 +18,21 @@ namespace Platformer.Gameplay
 
         public override void Execute()
         {
-            Simulation.Schedule<PlayerDeath>(0);
+            var gameController = GameObject.Find("GameController");
+            var popupMessage = gameController.GetComponent<PopupMessage>();
+            popupMessage.Open(CallBack);
+        }
+
+        private void CallBack(bool isCorrectAnswer)
+        {
+            if (!isCorrectAnswer)
+            {
+                Simulation.Schedule<PlayerDeath>(0);
+                return;
+            }
+
+            var player = model.player;
+            player.Teleport(deathzone.safeObject.transform.position);
         }
     }
 }
