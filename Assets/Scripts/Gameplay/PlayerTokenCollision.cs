@@ -19,6 +19,9 @@ namespace Platformer.Gameplay
         public override void Execute()
         {
             AudioSource.PlayClipAtPoint(token.tokenCollectAudio, token.transform.position);
+
+            var ev = Simulation.Schedule<PlayerScoredPoints>();
+            ev.scoredePoints = 10;
         }
     }
 }

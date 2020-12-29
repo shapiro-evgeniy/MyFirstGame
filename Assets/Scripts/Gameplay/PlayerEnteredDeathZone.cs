@@ -18,7 +18,7 @@ namespace Platformer.Gameplay
 
         public override void Execute()
         {
-            var gameController = GameObject.Find("GameController");
+            var gameController = GameObject.Find("GameController");            
             var popupMessage = gameController.GetComponent<PopupMessage>();
             popupMessage.Open(CallBack);
         }
@@ -27,12 +27,20 @@ namespace Platformer.Gameplay
         {
             if (!isCorrectAnswer)
             {
+                RaiseScoredPoint(-10);
                 Simulation.Schedule<PlayerDeath>(0);
                 return;
             }
 
             var player = model.player;
             player.Teleport(deathzone.safeObject.transform.position);
+            RaiseScoredPoint(50);
+        }
+
+        private void RaiseScoredPoint(int scoredPoint)
+        {
+            var ev = Simulation.Schedule<PlayerScoredPoints>();
+            ev.scoredePoints = scoredPoint;
         }
     }
 }
